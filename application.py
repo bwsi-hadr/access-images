@@ -43,7 +43,7 @@ def postImage(img):
 	pass
 
 def runFlask():
-	app.run(port=8083)
+	app.run(port=8383)
 
 # run this code if the file is executed (but not imported)
 if __name__ == "__main__":

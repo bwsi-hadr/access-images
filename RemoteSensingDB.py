@@ -6,7 +6,7 @@ import gridfs
 class RemSensDB():
     db = None
 
-    #creats the database
+    #creates the database
     def DataBaseInitialize(self):
         client = pymongo.MongoClient()
         self.db = client["database"]
@@ -15,21 +15,22 @@ class RemSensDB():
     #inserts data into the database from the json file
     def insertData(self, js):
         self.db["raw_images"].insert_many(js)
+        return 0
 
     #finds the object from a given id
     def findByID(self, i):
         o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
-        #print(o)
+        return o
 
     #finds the object from a given name
     def findByName(self, n):
         j = self.db["raw_images"].find_one({"name": n})
-        #print(j)
+        return o
 
     #find the object from a given date
     def findByDate(self, d):
         b = self.db["raw_images"].find_one({"date": d})
-        #print(b)
+        return b
 
     def uploadphoto(self, a, b):
         #fs = gridfs.GridFS(self.db)
@@ -38,7 +39,7 @@ class RemSensDB():
 
         #a = datafile
         #b = filename
-        thedata = a.read()
+        thedata = a
 
         fs = gridfs.GridFS(self.db)
 
@@ -58,20 +59,20 @@ class RemSensDB():
 
 if __name__ == "__main__":
     json = [
-    {"name": "C:/Users/Gabi/Documents/2019-07-12/image1.jpg", "date": "946688580"},
-    {"name": "C:/Users/Gabi/Documents/2019-07-12/image2.jpg", "date": "946692180"},
-    {"name": "C:/Users/Gabi/Documents/2019-07-12/image3.jpg", "date": "946796400"},
-    {"name": "C:/Users/Gabi/Documents/2019-07-12/image4.jpg", "date": "949482000"},
-    {"name": "C:/Users/Gabi/Documents/2019-07-12/image5.jpg", "date": "949564800"},
-    {"name": "C:/Users/Gabi/Documents/2019-07-12/image6.jpg", "date": "954820800"}
+    {"name": "images/image1.jpg", "date": "946688580"},
+    {"name": "images/image2.jpg", "date": "946692180"},
+    {"name": "images/image3.jpg", "date": "946796400"},
+    {"name": "images/image4.jpg", "date": "949482000"},
+    {"name": "images/image5.jpg", "date": "949564800"},
+    {"name": "images/image6.jpg", "date": "954820800"}
     ]
     query = "Image1.jpg"
-    na = 'C:/Users/Gabi/Documents/2019-07-12/Image4.jpg'
+    na = 'images/image4.jpg'
     da = '954820800'
     id = '5d28d5aa6c5112c81e28a653'
 
     #info for uploadphoto()
-    filename = "C:/Users/Gabi/Documents/BWSI2019/2019-07-12/image1.jpg"
+    filename = "images/image1.jpg"
     datafile = open(filename, "r");
 
     dbMan = RemSensDB()

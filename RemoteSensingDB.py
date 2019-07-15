@@ -1,6 +1,7 @@
 import pymongo
 from bson.objectid import ObjectId
 import gridfs
+from bson import objectid
 
 #uploadphoto , downloadphoto
 class RemSensDB():
@@ -32,20 +33,16 @@ class RemSensDB():
         b = self.db["raw_images"].find_one({"date": d})
         return b
 
-    def uploadphoto(self, a, b):
-        #fs = gridfs.GridFS(self.db)
-        #stored = fs.put(a)
-        #outputdata =fs.get(stored).read()
-
-        #a = datafile
-        #b = filename
-        thedata = a
+    def uploadphoto(self, b):
 
         fs = gridfs.GridFS(self.db)
 
-        stored = fs.put(thedata, b = "test")
+        with open(b, 'rb') as b:
+            store = fs.put(b)
 
-        outputdata = fs.get(stored).read()
+        outputdata = fs.get(store).read()
+        #print(outputdata)
+        return outputdata
 
 
     def downloadphoto(self):
@@ -73,7 +70,6 @@ if __name__ == "__main__":
 
     #info for uploadphoto()
     filename = "images/image1.jpg"
-    datafile = open(filename, "r");
 
     dbMan = RemSensDB()
     #dbMan.insertData(json)
@@ -81,4 +77,5 @@ if __name__ == "__main__":
     #dbMan.findByName(na)
     #dbMan.findByDate(da)
     #dbMan.findByID(id)
-    dbMan.uploadphoto(datafile, filename)
+    #dbMan.uploadphoto(filename)
+    dbMan.downloadphoto(filename)

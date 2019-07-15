@@ -12,10 +12,13 @@ from RemoteSensingDB import RemSensDB
 # Set the directory of the app's webpage
 @app.route("/")
 def basic():
+    data = RemSensDB()
     return "<a href='/random'>hi</a>"
 
 @app.route("/image/<string:id_number>", methods=["GET"])
 def getImageById(id_number):
+    data = RemSensDB()
+    file = findByID(id_number)
     filename = 'images/image{}.jpg'.format(id_number)
     return send_file(filename, mimetype = 'image/jpg')
 
@@ -24,28 +27,32 @@ def getImageById(id_number):
 
 @app.route("/images", methods=["GET"])
 def getImageList():
-	print("Listing\nImages")
-	return "Listing\nImages"
+    data = RemSensDB()
+    print("Listing\nImages")
+    return "Listing\nImages"
 
 
 @app.route("/date/<int:date>", methods=["GET"])
 def getImageByDate(date):
-	print(date)
-	filename = 'images/image2.jpg'
-	return send_file(filename, mimetype = 'image/jpg')
+    data = RemSensDB()
+    print(date)
+    file = data.findByDate(date)
+    return send_file(file, mimetype = 'image/jpg')
 
 @app.route("/random", methods=["GET"])
 def getRandomImage():
-	r = Random()
-	randNumber = r.randint(1,5)
-	return redirect("../image/{}".format(randNumber))
+    data = RemSensDB()
+    r = Random()
+    randNumber = r.randint(1,5)
+    return redirect("../image/{}".format(randNumber))
 
 @app.route("/upload", methods=["POST"])
-def postImage(img):
-	pass
+def uploadImage(img):
+    data = RemSensDB()
+    pass
 
 def runFlask():
-	app.run(port=8383)
+    app.run(port=8383)
 
 # run this code if the file is executed (but not imported)
 if __name__ == "__main__":

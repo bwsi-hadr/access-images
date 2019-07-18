@@ -27,7 +27,7 @@ class RemSensDB():
     #finds the object from a given name
     def findByName(self, n):
         j = self.db["raw_images"].find_one({"name": n})
-        return o
+        return j
 
     #find the object from a given date
     def findByDate(self, d):
@@ -41,7 +41,6 @@ class RemSensDB():
 
         with open(b, 'rb') as b:
             store = self.fs.put(b)
-
         #print("store:   ", store)
         return store
 
@@ -80,9 +79,8 @@ if __name__ == "__main__":
     #----------METHODS------------------------
 
     #dbMan.insertData(json)
-    #dbMan.queryDB(query)
     #dbMan.findByName(na)
     #dbMan.findByDate(da)
     #dbMan.findByID(id)
-    dbMan.uploadphoto(filename)
-    #dbMan.downloadphoto(dbMan.uploadphoto(filename))
+    #dbMan.uploadphoto(filename)
+    dbMan.downloadphoto(dbMan.uploadphoto(filename))

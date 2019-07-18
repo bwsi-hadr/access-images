@@ -29,10 +29,12 @@ class RemSensDB():
         j = self.db["raw_images"].find_one({"name": n})
         return j
 
+
     #find the object from a given date
-    def findByDate(self, d):
-        b = self.db["raw_images"].find_one({"date": d})
-        return b
+#    def findByDate(self, d):
+#        b = self.db["raw_images"].find_one({"date": d})
+#        return b
+
 
     # store the data in the database. Returns the id of the file in gridFS
     def uploadphoto(self, b):

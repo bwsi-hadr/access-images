@@ -10,4 +10,4 @@ Once the data is downloaded, run the application by going into the directory of 
 ```python3 application.py```.
 If this throws an error, you may need admin access to run the file. Run your command prompt as an administrator (Windows) and repeat the command, or run the following command (Mac/Linux):
 ```sudo python3 application.py```.
-Once the program is running, navigate to `localhost:8383` in your favorite browser.
+Once the program is running, navigate to `localhost:8484` in your favorite browser.

@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     na = "image1"
     id = "5d31ceeff814e0b3a9fe59de"
-
+    filename = "images/"
     #-------------------METHODS------------------------#
 
     #++++++++++++DO NOT USE++++++++++++++++#

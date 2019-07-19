@@ -15,6 +15,9 @@ class RemSensDB():
     def DataBaseInitialize(self):
         client = pymongo.MongoClient()
         self.db = client["database"]
+
+        #storing data
+        self.fs = gridfs.GridFS(self.db)
         #print(client.list_database_names())
 
     #inserts data into the database from the json file
@@ -23,23 +26,29 @@ class RemSensDB():
 
     #finds the object from a given id
     def findByID(self, i):
-        o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
+        #o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
         #print(o)
+        o = self.fs.find({"_id": ObjectId(i)})
+        print("id+++++ ", o)
+        return o
+
 
     #finds the object from a given name
     def findByName(self, n):
-        j = self.db["raw_images"].find_one({"name": n})
-        print(j)
+        #j = self.db["raw_images"].find_one({"name": n})
+        #print(j)
+        data = self.fs.find({"filename": n})
+        return data
+
 
     #find the object from a given date
     def findByDate(self, d):
-        b = self.db["raw_images"].find_one({"date": d})
+        #b = self.db["raw_images"].find_one({"date": d})
         #print(b)
+        pass
 
     # store the data in the database. Returns the id of the file in gridFS
     def uploadphoto(self, b, name):
-        #storing data
-        self.fs = gridfs.GridFS(self.db)
         #print(name)
         with open(b, 'rb') as b:
             store = self.fs.put(b, filename = name)
@@ -57,15 +66,20 @@ class RemSensDB():
         #self.insertData()
 
 if __name__ == "__main__":
-
     dbMan = RemSensDB()
+
+    na = "image1"
+    id = "5d31ceeff814e0b3a9fe59de"
 
     #-------------------METHODS------------------------#
 
-    dbMan.insertData(file)
-    dbMan.queryDB(query)
+    #++++++++++++DO NOT USE++++++++++++++++#
+    #dbMan.insertData(file)
+    #dbMan.queryDB(query)
+    #dbMan.findByDate(da)
+
+    #+++++++++++USE++++++++++++++++++++++++#
     dbMan.findByName(na)
-    dbMan.findByDate(da)
     dbMan.findByID(id)
     dbMan.uploadphoto(filename)
     dbMan.downloadphoto(dbMan.uploadphoto(filename))

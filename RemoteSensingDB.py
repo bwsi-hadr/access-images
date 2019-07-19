@@ -29,7 +29,7 @@ class RemSensDB():
         #o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
         #print(o)
         o = self.fs.find({"_id": ObjectId(i)})
-        print("id+++++ ", o)
+        #print("id+++++ ", o)
         return o
 
 

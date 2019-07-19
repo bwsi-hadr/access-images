@@ -6,6 +6,7 @@ import gridfs
 from bson import objectid
 
 
+
 #uploadphoto , downloadphoto
 class RemSensDB():
     db = None
@@ -28,7 +29,9 @@ class RemSensDB():
     def findByID(self, i):
         #o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
         #print(o)
-        o = self.fs.find({"_id": ObjectId(i)})
+        for grid_out in self.fs.find({"_id": ObjectId(i)}):
+            o = grid_out.read()
+
         #print("id+++++ ", o)
         return o
 
@@ -37,7 +40,9 @@ class RemSensDB():
     def findByName(self, n):
         #j = self.db["raw_images"].find_one({"name": n})
         #print(j)
-        data = self.fs.find({"filename": n})
+        for grid_out in self.fs.find({"filename": n}):
+            data = grid_out.read()
+
         return data
 
 
@@ -70,7 +75,9 @@ if __name__ == "__main__":
 
     na = "image1"
     id = "5d31ceeff814e0b3a9fe59de"
+    n = "image1"
     filename = "images/"
+
     #-------------------METHODS------------------------#
 
     #++++++++++++DO NOT USE++++++++++++++++#
@@ -81,5 +88,5 @@ if __name__ == "__main__":
     #+++++++++++USE++++++++++++++++++++++++#
     dbMan.findByName(na)
     dbMan.findByID(id)
-    dbMan.uploadphoto(filename)
-    dbMan.downloadphoto(dbMan.uploadphoto(filename))
+    #dbMan.uploadphoto(filename,n)
+    #dbMan.downloadphoto(dbMan.uploadphoto(filename))

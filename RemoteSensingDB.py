@@ -29,6 +29,11 @@ class RemSensDB():
     def findByID(self, i):
         #o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
         #print(o)
+        o = False
+        try:
+            ObjectId(i)
+        except Exception as e:
+            raise AssertionError("Invalid ID")
         for grid_out in self.fs.find({"_id": ObjectId(i)}):
             o = grid_out.read()
 
@@ -40,6 +45,7 @@ class RemSensDB():
     def findByName(self, n):
         #j = self.db["raw_images"].find_one({"name": n})
         #print(j)
+        data=False
         for grid_out in self.fs.find({"filename": n}):
             data = grid_out.read()
 
@@ -55,6 +61,7 @@ class RemSensDB():
     # store the data in the database. Returns the id of the file in gridFS
     def uploadphoto(self, b, name):
         #print(name)
+        store = False
         with open(b, 'rb') as b:
             store = self.fs.put(b, filename = name)
         #print("store:   ", store)

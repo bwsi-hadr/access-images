@@ -15,49 +15,36 @@ class RemSensDB():
     #creats the database
     def DataBaseInitialize(self):
         client = pymongo.MongoClient()
+        #Creating a client
         self.db = client["database"]
 
         #storing data
         self.fs = gridfs.GridFS(self.db)
-        #print(client.list_database_names())
 
     #inserts data into the database from the json file
+    #THIS IS NOT USED TO INSERT PHOTO'S - ONLY DATA****
     def insertData(self, js):
         self.db["raw_images"].insert_many(js)
 
-    #finds the object from a given id
+    #finds the object from a given id (i)
     def findByID(self, i):
-        #o = self.db["raw_images"].find_one({"_id": ObjectId(i)})
-        #print(o)
         for grid_out in self.fs.find({"_id": ObjectId(i)}):
-            o = grid_out.read()
-
-        #print("id+++++ ", o)
-        return o
-
-
-    #finds the object from a given name
-    def findByName(self, n):
-        #j = self.db["raw_images"].find_one({"name": n})
-        #print(j)
-        for grid_out in self.fs.find({"filename": n}):
             data = grid_out.read()
 
         return data
 
 
-    #find the object from a given date
-    def findByDate(self, d):
-        #b = self.db["raw_images"].find_one({"date": d})
-        #print(b)
-        pass
+    #finds the object from a given name (n)
+    def findByName(self, n):
+        for grid_out in self.fs.find({"filename": n}):
+            data = grid_out.read()
+
+        return data
 
     # store the data in the database. Returns the id of the file in gridFS
     def uploadphoto(self, b, name):
-        #print(name)
         with open(b, 'rb') as b:
             store = self.fs.put(b, filename = name)
-        #print("store:   ", store)
         return store
 
 # create an output file and store the image in the output file
@@ -73,6 +60,7 @@ class RemSensDB():
 if __name__ == "__main__":
     dbMan = RemSensDB()
 
+    #---------------TEST VARIABLES--------------------#
     na = "image1"
     id = "5d31ceeff814e0b3a9fe59de"
     n = "image1"

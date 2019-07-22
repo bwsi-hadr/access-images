@@ -28,6 +28,11 @@ class RemSensDB():
 
     #finds the object from a given id (i)
     def findByID(self, i):
+        data = False
+        try:
+            ObjectId(i)
+        except Exception as e:
+            raise AssertionError("Invalid ID")
         for grid_out in self.fs.find({"_id": ObjectId(i)}):
             data = grid_out.read()
 

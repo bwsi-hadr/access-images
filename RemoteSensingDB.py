@@ -14,7 +14,7 @@ class RemSensDB():
 
     #creats the database
     def DataBaseInitialize(self):
-        client = pymongo.MongoClient()
+        client = pymongo.MongoClient("mongodb://127.0.0.1/database")
         #Creating a client
         self.db = client["database"]
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     #dbMan.findByDate(da)
 
     #+++++++++++USE++++++++++++++++++++++++#
-    dbMan.findByName(na)
-    dbMan.findByID(id)
+    print(dbMan.findByName(na))
+    print(dbMan.findByID(id))
     #dbMan.uploadphoto(filename,n)
     #dbMan.downloadphoto(dbMan.uploadphoto(filename))

@@ -14,7 +14,7 @@ class RemSensDB():
 
     #creats the database
     def DataBaseInitialize(self):
-        client = pymongo.MongoClient()
+        client = pymongo.MongoClient("mongodb://192.168.96.1:27017/database", username = "user1", password = "remote2019")
         #Creating a client
         self.db = client["database"]
 
@@ -47,9 +47,9 @@ class RemSensDB():
         return data
 
     # store the data in the database. Returns the id of the file in gridFS
-    def uploadphoto(self, b, name):
-        with open(b, 'rb') as b:
-            store = self.fs.put(b, filename = name)
+    def uploadphoto(self, name):
+        b= open(name, 'rb')
+        store = self.fs.put(b, filename = name)
         return store
 
 # create an output file and store the image in the output file
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     #dbMan.findByDate(da)
 
     #+++++++++++USE++++++++++++++++++++++++#
-    #dbMan.findByName(na)
-    #dbMan.findByID(id)
-    dbMan.uploadphoto(filename, n)
+    #print(dbMan.findByName(na))
+    #print(dbMan.findByID(id))
+    dbMan.uploadphoto(n)
     #dbMan.downloadphoto(dbMan.uploadphoto(filename))
